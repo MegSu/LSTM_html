@@ -16,21 +16,6 @@ function postData(url, data) {
         .then(response => response.json()) // 輸出成json
 }
 
-// function submit(){
-//     const keyin = document.getElementsByName("keyin")[0].value
-//     const data = {
-//         keyin
-//     }
-    
-//     postData('http://35.223.93.152/hidden', data)
-//     .then(data=>{
-//         data = data.replace(/\n/g, "<br />");
-//         console.log(data);
-//         document.getElementsByName("resultText")[0].innerHTML=(data)
-        
-//     })
-// }
-
 function submit(){
     var elements = document.getElementsByName("selecttype")
     
