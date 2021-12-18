@@ -4,9 +4,11 @@ html {
   font-size: 100%;
 }
 body {
-  background:linear-gradient(top,#ffffff,rgba(51,51,51,0.2)),url(../images/flower.jpg);
-  background:-moz-linear-gradient(top,#ffffff,rgba(51,51,51,0.2)),url(../images/flower.jpg);
-  background:-webkit-linear-gradient(top,#ffffff,rgba(51,51,51,0.2)),url(../images/flower.jpg);
+  background-image: url(../images/backgroundv1.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
 }
 .page-header {
   justify-content: space-between;
@@ -51,7 +53,7 @@ p {
   background-color: aliceblue;
   color: teal;
   font-family: cursive;
-  font-size: 16px;
+  font-size: 20px;
   /*text-align: justify;
   text-justify:inter-ideograph;*/
 }
@@ -73,7 +75,7 @@ textarea {
   text-align: center;
   background: rgba(255, 255, 255, 0.5);
   padding: 10px;
-  font-size: 1.125rem;
+  /*font-size: 1.125rem;*/
 }
 input[type="text"],
 input[type="email"] {
@@ -89,7 +91,7 @@ textarea {
 input[type="submit"] {
   font-family: cursive;
   color: #5f9ea0;
-  font-size: 20px;
+  font-size: 22px;
   display: block;
   margin: 0 auto;
   text-align: center;
@@ -100,7 +102,7 @@ input[type="submit"] {
 }
 span {
   font-family: cursive;
-  font-size: 16px;
+  font-size: 22px;
   color:teal;
   display: block;
   margin: 0 auto;
@@ -108,7 +110,7 @@ span {
   background:linen;
   border: none;
   width: 100%;
-  max-width: 500px;
+  max-width: 300px;
 }
 
 /*form*/
