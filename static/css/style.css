@@ -73,7 +73,7 @@ textarea {
   display: block;
   margin: 0 auto;
   text-align: center;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(233, 218, 218, 0.5);
   padding: 10px;
   /*font-size: 1.125rem;*/
 }
@@ -90,14 +90,16 @@ textarea {
 }
 input[type="submit"] {
   font-family: cursive;
-  color: #5f9ea0;
+  color: #706e6e;
   font-size: 22px;
+  -webkit-text-stroke: 0.5px #706e6e;
   display: block;
   margin: 0 auto;
   text-align: center;
-  background: rgba(255, 255, 255, 0.5);
-  border: none;
-  cursor: pointer;
+  background: rgba(255, 236, 236, 0.993);
+  border: 0px;
+  border-radius: 5px;
+  cursor: default;
   line-height: 1;
 }
 span {
