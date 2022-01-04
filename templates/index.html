@@ -14,6 +14,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/7.0.0-alpha.17/swiper-bundle.min.css">
   </head>
   <body>
+        <!-- BEGIN PROGRESS DIALOG -->
+    <DIV STYLE="BORDER: buttonhighlight 2px outset; FONT-SIZE: 12pt; Z-INDEX:4; 
+      FONT-FAMILY: cursive; POSITION:absolute; BACKGROUND-COLOR:rgb(252, 251, 235);
+      DISPLAY: none; WIDTH: 350px; CURSOR: default" ID="divProgressDialog"
+      onselectstart="window.event.returnValue=false;">
+    <DIV STYLE="PADDING: 3px; FONT-WEIGHT: bolder; COLOR: captiontext;
+      BORDER-BOTTOM: white 2px groove; BACKGROUND-COLOR: rgb(252, 251, 235)">
+      生成中   </DIV>
+    <DIV STYLE="PADDING: 5px">
+      請稍等，生成器正在絞盡腦汁……
+    </DIV>
+    <DIV STYLE="PADDING: 5px">
+      可能需要幾秒鐘.
+    </DIV>
+    <DIV STYLE="PADDING: 5px">
+    <DIV ID="divProgressOuter" STYLE="BORDER: 1px solid threedshadow;
+    WIDTH: 336px; HEIGHT: 15px">
+    <DIV ID="divProgressInner" STYLE="COLOR: white; TEXT-ALIGN:center; 
+      BACKGROUND-COLOR: rgb(248, 201, 201); MARGIN: 0px; WIDTH: 0px; HEIGHT:13px;">
+    </DIV>
+    </DIV>
+    </DIV>
+    <DIV STYLE="BORDER-TOP: block 2px groove; PADDING-BOTTOM: 5px; PADDING-TOP: 3px;
+      BACKGROUND-COLOR: rgb(252, 251, 235); TEXT-ALIGN:center">
+    <INPUT STYLE="FONT-FAMILY: cursive; FONT-SIZE: 12pt" TYPE="submit"
+      ID="btnCancel" onclick="stopLongProcess();" VALUE="取消">
+    </DIV>
+    </DIV>
+    <!-- END PROGRESS DIALOG -->
+    <!-- BEGIN FAKE MODAL DIV-->
+    <DIV ID="divModal"
+      STYLE="BACKGROUND-COLOR: rgb(252, 251, 235); FILTER: alpha(opacity=75); LEFT: 0px; POSITION:absolute
+      TOP: 0px; Z-INDEX: 3"
+      onclick="window.event.cancelBubble=true; window.event.returnValue=false;">
+    </DIV>
+    <!-- END FAKE MODAL DIV -->
     <div id="home" class="big-bg">
       <img src="../static/images/logo.png" height="150px" width="375px" style="display:block; margin:auto;"/>
       <header  align="right" class="page-header wrapper">
@@ -30,8 +66,8 @@
           <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v12.0" nonce="nDToMbH6"></script>
           <div class="home-content wrapper">
             <h2 align="center">~AI讀懂你的心~</h2>
-            <input type="radio" name="selecttype" value="一般詩" checked>一般詩
-            <input type="radio" name="selecttype" value="藏頭詩">藏頭詩
+            <input type="radio" name="modern" id="modern-poetry" onclick="checkRadio(name)" checked>現代詩
+            <input type="radio" name="headhidden" id="headhidden-poetry" onclick="checkRadio(name)">藏頭詩
             <br><br>
             <input type="text" id="row" placeholder="請輸入句數(藏頭詩不用輸入)">
             <br>
@@ -45,7 +81,7 @@
             
             <br>
             <br>
-            <h2 align="center">訓練資料集取自以下詩人，感謝他們創造許多膾炙人口的詩詞</h2>
+            <h2 align="center">訓練資料集節錄至7100+位詩人的詩集，以下僅顯示部分詩人，感謝他們創造許多膾炙人口的詩詞</h2>
             <!--nav-->
               <!--p align="right">點擊圖片即可連結到維基百科查看詩人介紹</p-->
             <!--/nav-->
@@ -72,8 +108,35 @@
         <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E8%88%92%E5%A9%B7"><img src="../static/images/舒婷.jpg" target="_blank" title="舒婷" width="150" height="150" alt="舒婷" border="0" /></a></div>
         <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E8%89%BE%E9%9D%92"><img src="../static/images/艾青.jpg" target="_blank" title="艾青" width="150" height="150" alt="艾青" border="0" /></a></div>
         <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E9%A1%BE%E5%9F%8E"><img src="../static/images/顧城.jpg" target="_blank" title="顧城" width="150" height="150" alt="顧城" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%B8%80%E4%BF%A1"><img src="../static/images/一信.jpg" target="_blank" title="一信" width="150" height="150" alt="一信" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%B8%81%E5%A8%81%E4%BB%81"><img src="../static/images/丁威仁.jpg" target="_blank" title="丁威仁" width="150" height="150" alt="丁威仁" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%B8%81%E6%96%87%E6%99%BA"><img src="../static/images/丁文智.jpg" target="_blank" title="丁文智" width="150" height="150" alt="丁文智" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%B8%87%E5%A4%8F"><img src="../static/images/萬夏.jpg" target="_blank" title="萬夏" width="150" height="150" alt="萬夏" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%B8%89%E6%AF%9B_(%E4%BD%9C%E5%AE%B6)"><img src="../static/images/三毛.jpg" target="_blank" title="三毛" width="150" height="150" alt="三毛" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%B8%A5%E5%8A%9B"><img src="../static/images/嚴力.jpg" target="_blank" title="嚴力" width="150" height="150" alt="嚴力" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%B9%8C%E9%9D%92"><img src="../static/images/烏青.jpg" target="_blank" title="烏青" width="150" height="150" alt="烏青" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%BC%8A%E6%B2%99"><img src="../static/images/伊沙.jpg" target="_blank" title="伊沙" width="150" height="150" alt="伊沙" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%BD%95%E5%85%B6%E8%8A%B3"><img src="../static/images/何其芳.jpg" target="_blank" title="何其芳" width="150" height="150" alt="何其芳" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%BD%95%E5%90%91%E9%98%B3"><img src="../static/images/何向陽.jpg" target="_blank" title="何向陽" width="150" height="150" alt="何向陽" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%BD%95%E5%B0%8F%E7%AB%B9"><img src="../static/images/何小竹.jpg" target="_blank" title="何小竹" width="150" height="150" alt="何小竹" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E4%BD%99%E7%A7%80%E8%8F%AF"><img src="../static/images/余秀華.jpg" target="_blank" title="余秀華" width="150" height="150" alt="余秀華" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%82%85%E5%A4%A9%E7%90%B3"><img src="../static/images/傅天琳.jpg" target="_blank" title="傅天琳" width="150" height="150" alt="傅天琳" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%86%AF%E4%B9%83%E8%B6%85"><img src="../static/images/馮乃超.jpg" target="_blank" title="馮乃超" width="150" height="150" alt="馮乃超" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%BA%9F%E5%90%8D"><img src="../static/images/廢名.jpg" target="_blank" title="廢名" width="150" height="150" alt="廢名" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%88%98%E4%BA%AE%E7%A8%8B"><img src="../static/images/劉亮程.jpg" target="_blank" title="劉亮程" width="150" height="150" alt="劉亮程" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%8A%89%E5%85%8B%E8%A5%84"><img src="../static/images/劉克襄.jpg" target="_blank" title="劉克襄" width="150" height="150" alt="劉克襄" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E7%B6%A0%E5%8E%9F"><img src="../static/images/綠原.jpg" target="_blank" title="綠原" width="150" height="150" alt="綠原" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%8D%9E%E4%B9%8B%E7%90%B3"><img src="../static/images/卞之琳.jpg" target="_blank" title="卞之琳" width="150" height="150" alt="卞之琳" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%91%A8%E5%A4%A2%E8%9D%B6"><img src="../static/images/周夢蝶.jpg" target="_blank" title="周夢蝶" width="150" height="150" alt="周夢蝶" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%95%9E%E9%BB%98"><img src="../static/images/啞默.jpg" target="_blank" title="啞默" width="150" height="150" alt="啞默" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%94%90%E6%8D%90"><img src="../static/images/唐捐.jpg" target="_blank" title="唐捐" width="150" height="150" alt="唐捐" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%A4%8F%E5%AE%87"><img src="../static/images/夏宇.jpg" target="_blank" title="夏宇" width="150" height="150" alt="夏宇" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%AE%97%E7%99%BD%E5%8D%8E"><img src="../static/images/宗白華.jpg" target="_blank" title="宗白華" width="150" height="150" alt="宗白華" border="0" /></a></div>
+        <div class="swiper-slide"><a href="https://zh.wikipedia.org/wiki/%E5%BC%B5%E6%84%9B%E7%8E%B2"><img src="../static/images/張愛玲.jpg" target="_blank" title="張愛玲" width="150" height="150" alt="張愛玲" border="0" /></a></div>        
       </div>
       <div class="swiper-pagination"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
     <p align="center">以上的詩人你都認識嗎?將滑鼠移至圖片會顯示詩人的名字喔！點擊圖片即可連結到維基百科查看詩人介紹</p>
         </article>
